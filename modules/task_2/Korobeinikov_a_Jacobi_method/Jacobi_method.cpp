@@ -36,6 +36,7 @@ std::vector<double> Jacobi_Solve(const std::vector <double>& A,
     double eps,
     int n, int rank, int part, int numprocs) {
     std::vector <double> x_old(n);
+    std::vector <double> x_new(n);
     int i, iter = 0, zero_num;
     double d_norm, d_val;
     std::vector <int> displs(numprocs);
@@ -60,9 +61,10 @@ std::vector<double> Jacobi_Solve(const std::vector <double>& A,
             x[i + zero_num] = (A[i * (n + 1) + n] - sum) /
                 A[i * (n + 1) + i + zero_num];
         }
-        MPI_Allgatherv(&x[0] + zero_num, part, MPI_DOUBLE, &x[0],
+        MPI_Allgatherv(&x[0] + zero_num, part, MPI_DOUBLE, &x_new[0],
             &sendcnts[0], &displs[0], MPI_DOUBLE,
             MPI_COMM_WORLD);
+        x = x_new;
         d_norm = 0;
         if (rank == 0) {
             for (i = 0; i < n; i++) {
