@@ -20,7 +20,7 @@ TEST(Jacobi_method, First_Sample_With_Size_3) {
 
     if (rank == 0) {
         double error = getNormForAns(matrix, result, b);
-        ASSERT_NEAR(error, 0, 0.5);
+        ASSERT_NEAR(error, 0, 0.005);
     }
 }
 
@@ -39,7 +39,7 @@ TEST(Jacobi_method, Second_Sample_With_Size_3) {
 
     if (rank == 0) {
         double error = getNormForAns(matrix, result, b);
-        ASSERT_NEAR(error, 0, 0.5);
+        ASSERT_NEAR(error, 0, 0.005);
     }
 }
 
@@ -58,7 +58,7 @@ TEST(Jacobi_method, Third_Sample_With_Size_3) {
 
     if (rank == 0) {
         double error = getNormForAns(matrix, result, b);
-        ASSERT_NEAR(error, 0, 0.5);
+        ASSERT_NEAR(error, 0, 0.005);
     }
 }
 
@@ -78,7 +78,7 @@ TEST(Jacobi_method, First_Sample_With_Size_4) {
 
     if (rank == 0) {
         double error = getNormForAns(matrix, result, b);
-        ASSERT_NEAR(error, 0, 0.5);
+        ASSERT_NEAR(error, 0, 0.05);
     }
 }
 
@@ -98,7 +98,7 @@ TEST(Jacobi_method, Second_Sample_With_Size_4) {
 
     if (rank == 0) {
         double error = getNormForAns(matrix, result, b);
-        ASSERT_NEAR(error, 0, 0.5);
+        ASSERT_NEAR(error, 0, 0.05);
     }
 }
 
