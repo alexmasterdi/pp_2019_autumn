@@ -50,7 +50,7 @@ double func6(std::vector<double> v) {
     return sqrt(std::abs(5*x)) + exp(y) + 2.9*sin(z) - t*t;
 }
 
-TEST(Jacobi_method, Integral_with_2_dimension) {
+TEST(MultipleIntegraion, Integral_with_2_dimension) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 2;
@@ -68,7 +68,7 @@ TEST(Jacobi_method, Integral_with_2_dimension) {
     }
 }
 
-TEST(Jacobi_method, Integral_with_3_dimension) {
+TEST(MultipleIntegraion, Integral_with_3_dimension) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 3;
@@ -87,7 +87,7 @@ TEST(Jacobi_method, Integral_with_3_dimension) {
     }
 }
 
-TEST(Jacobi_method, Integral_with_3_dimension_and_use_log_function) {
+TEST(MultipleIntegraion, Integral_with_3_dimension_and_use_log_function) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 3;
@@ -106,7 +106,7 @@ TEST(Jacobi_method, Integral_with_3_dimension_and_use_log_function) {
     }
 }
 
-TEST(Jacobi_method, Integral_with_3_dimension_and_use_sin_and_cos_functions) {
+TEST(MultipleIntegraion, Integral_with_3_dimension_and_use_sin_and_cos_functions) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 3;
@@ -125,7 +125,7 @@ TEST(Jacobi_method, Integral_with_3_dimension_and_use_sin_and_cos_functions) {
     }
 }
 
-TEST(Jacobi_method, First_Integral_with_4_dimension_easy_version) {
+TEST(MultipleIntegraion, First_Integral_with_4_dimension_easy_version) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 4;
@@ -136,16 +136,17 @@ TEST(Jacobi_method, First_Integral_with_4_dimension_easy_version) {
         dist[2] = { -9, 1 };
         dist[3] = { 5, 7 };
     }
-
+    double time1 = MPI_Wtime();
     double result = ParallelVersion(func5, dist);
-
+    double time2 = MPI_Wtime();
     if (rank == 0) {
+        std::cout << time2 - time1 << '\n';
         double error = 0.0001;
         ASSERT_NEAR(result, 1892.4, error);
     }
 }
 
-TEST(Jacobi_method, Second_Integral_with_4_dimension_hard_version) {
+TEST(MultipleIntegraion, Second_Integral_with_4_dimension_hard_version) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int n = 4;
@@ -156,11 +157,12 @@ TEST(Jacobi_method, Second_Integral_with_4_dimension_hard_version) {
         dist[2] = { -58, 12 };
         dist[3] = { 5, 73 };
     }
-
+    double time1 = MPI_Wtime();
     double result = ParallelVersion(func6, dist);
-
+    double time2 = MPI_Wtime();
     if (rank == 0) {
         double error = 0.2;
+        std::cout << time2 - time1 << '\n';
         // std::cout << std::fixed << result;
         ASSERT_NEAR(result, -200671484.267, error);
     }
