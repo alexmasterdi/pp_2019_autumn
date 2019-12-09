@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
-#include "./calculation_of_integrals.h"
+#include "../../../modules/task_3/korobeinikov_a_calculation_of_integrals/calculation_of_integrals.h"
 
 double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v) {
     int numprocs, rank;
