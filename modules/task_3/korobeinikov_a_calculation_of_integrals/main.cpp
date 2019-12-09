@@ -155,7 +155,7 @@ TEST(Jacobi_method, Second_Integral_with_4_dimension_hard_version) {
     double result = ParallelVersion(func6, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, -200671484.26754013, 0.1);
+        ASSERT_NEAR(result, -200671484.26754013, 0.2);
     }
 }
 
