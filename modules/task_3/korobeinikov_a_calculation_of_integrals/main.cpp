@@ -47,7 +47,7 @@ double func6(std::vector<double> v) {
     double y = v[1];
     double z = v[2];
     double t = v[3];
-    return sqrt(std::abs(5*x)) + exp(y) + 2.9*sin(z) - t*t;
+    return cos(5*x) + exp(y) + 2.9*sin(z) - t*t;
 }
 
 TEST(MultipleIntegraion, Integral_with_2_dimension) {
@@ -161,10 +161,10 @@ TEST(MultipleIntegraion, Second_Integral_with_4_dimension_hard_version) {
     double result = ParallelVersion(func6, dist);
     double time2 = MPI_Wtime();
     if (rank == 0) {
-        double error = 0.2;
+        double error = 0.01;
         std::cout << time2 - time1 << '\n';
         // std::cout << std::fixed << result;
-        ASSERT_NEAR(result, -200671484.267, error);
+        ASSERT_NEAR(result, -201012517.928, error);
     }
 }
 
