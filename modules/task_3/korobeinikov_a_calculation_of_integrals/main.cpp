@@ -47,7 +47,7 @@ double func6(std::vector<double> v) {
     double y = v[1];
     double z = v[2];
     double t = v[3];
-    return sqrt(abs(5*x)) + exp(y) + 2.9*sin(z) - t*t;
+    return sqrt(std::abs(5*x)) + exp(y) + 2.9*sin(z) - t*t;
 }
 
 TEST(Jacobi_method, Integral_with_2_dimension) {
@@ -63,7 +63,8 @@ TEST(Jacobi_method, Integral_with_2_dimension) {
     double result = ParallelVersion(func1, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, -1650.0990000000018, 0.1);
+        double error = 0.1;
+        ASSERT_NEAR(result, -1650.0990000000018, error);
     }
 }
 
@@ -81,7 +82,8 @@ TEST(Jacobi_method, Integral_with_3_dimension) {
     double result = ParallelVersion(func2, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, 13571.661599999945, 0.1);
+        double error = 0.1;
+        ASSERT_NEAR(result, 13571.661599999945, error);
     }
 }
 
@@ -99,7 +101,8 @@ TEST(Jacobi_method, Integral_with_3_dimension_and_use_log_function) {
     double result = ParallelVersion(func3, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, -1320.7583639973182, 0.1);
+        double error = 0.1;
+        ASSERT_NEAR(result, -1320.7583639973182, error);
     }
 }
 
@@ -117,7 +120,8 @@ TEST(Jacobi_method, Integral_with_3_dimension_and_use_sin_and_cos_functions) {
     double result = ParallelVersion(func4, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, 4442.00198999875, 0.01);
+        double error = 0.01;
+        ASSERT_NEAR(result, 4442.00198999875, error);
     }
 }
 
@@ -136,7 +140,8 @@ TEST(Jacobi_method, First_Integral_with_4_dimension_easy_version) {
     double result = ParallelVersion(func5, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, 1892.4, 0.0001);
+        double error = 0.0001;
+        ASSERT_NEAR(result, 1892.4, error);
     }
 }
 
@@ -155,7 +160,9 @@ TEST(Jacobi_method, Second_Integral_with_4_dimension_hard_version) {
     double result = ParallelVersion(func6, dist);
 
     if (rank == 0) {
-        ASSERT_NEAR(result, -200671484.26754013, 0.2);
+        double error = 0.2;
+        // std::cout << std::fixed << result;
+        ASSERT_NEAR(result, -200671484.267, error);
     }
 }
 
