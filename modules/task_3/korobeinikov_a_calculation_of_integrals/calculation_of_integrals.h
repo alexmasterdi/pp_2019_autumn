@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <utility>
 
-double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v);
+double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v,
+    std::vector <int> distr);
+double SequentialVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v,
+    std::vector <int> distr);
 
 #endif  // MODULES_TASK_3_KOROBEINIKOV_A_CALCULATION_OF_INTEGRALS_CALCULATION_OF_INTEGRALS_H_

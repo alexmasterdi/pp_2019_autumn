@@ -8,7 +8,8 @@
 #include <utility>
 #include "../../../modules/task_3/korobeinikov_a_calculation_of_integrals/calculation_of_integrals.h"
 
-double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v) {
+double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v,
+                      std::vector <int> distr) {
     int numprocs, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -20,7 +21,7 @@ double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pa
     if (rank == 0) {
         num_elem = 1;
         for (int i = 0; i < n; ++i) {
-            ni[i] = 100;
+            ni[i] = distr[i];
             hi[i] = (v[i].second - v[i].first) / ni[i];
             if (i != n - 1) {
                 num_elem *= ni[i];
@@ -63,4 +64,30 @@ double ParallelVersion(double (*func)(std::vector<double>), std::vector <std::pa
         gsum *= hi[i];
     }
     return gsum;
+}
+
+double SequentialVersion(double (*func)(std::vector<double>), std::vector <std::pair<double, double>> v,
+    std::vector <int> distr) {
+    int count = distr.size();
+    std::vector<double> h(count);
+    uint64_t number = 1;
+    for (int i = 0; i < count; ++i) {
+        h[i] = (v[i].second - v[i].first) / distr[i];
+        number *= distr[i];
+    }
+    std::vector <double> params(count);
+    double sum = 0.0;
+    for (int i = 0; i < number; ++i) {
+        int x = i;
+        for (int j = 0; j < count; ++j) {
+            int cef = x % distr[j];
+            params[j] = v[j].first + cef * h[j] + h[j] / 2;
+            x /= distr[j];
+        }
+        sum += func(params);
+    }
+    for (int i = 0; i < count; ++i) {
+        sum *= h[i];
+    }
+    return sum;
 }
