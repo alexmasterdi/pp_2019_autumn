@@ -70,7 +70,7 @@ double SequentialVersion(double (*func)(std::vector<double>), std::vector <std::
     std::vector <int> distr) {
     int count = distr.size();
     std::vector<double> h(count);
-    uint64_t number = 1;
+    int64_t number = 1;
     for (int i = 0; i < count; ++i) {
         h[i] = (v[i].second - v[i].first) / distr[i];
         number *= distr[i];

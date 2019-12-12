@@ -5,7 +5,7 @@
 #include <math.h>
 #include <utility>
 #include <vector>
-#include "./calculation_of_integrals.h"
+#include "../../../modules/task_3/korobeinikov_a_calculation_of_integrals/calculation_of_integrals.h"
 
 double func1(std::vector<double> v) {
     double x = v[0];
